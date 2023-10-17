@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "private": true,
+  "private": false,
   "version": "p",
   "type": "module",
   "scripts": {
