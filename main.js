@@ -1,6 +1,6 @@
 
-import { getWeather } from "./weather"
-import { ICON_MAP } from "./iconMap"
+import { getWeather } from "/weather"
+import { ICON_MAP } from "/iconMap"
 
 navigator.geolocation.getCurrentPosition(positionSuccess, positionError)
 
