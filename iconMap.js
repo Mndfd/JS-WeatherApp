@@ -1,5 +1,5 @@
 export const ICON_MAP = new Map()
-
+// Mapping created so the information received from the api will be used to for corresponded image.
 addMapping([0, 1], "sun")
 addMapping([2], "cloud-sun")
 addMapping([3], "cloud")

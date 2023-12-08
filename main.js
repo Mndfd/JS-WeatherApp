@@ -1,9 +1,9 @@
 
-import { getWeather } from "/weather"
-import { ICON_MAP } from "/iconMap"
+import { getWeather } from "./weather"
+import { ICON_MAP } from "./iconMap"
 
 navigator.geolocation.getCurrentPosition(positionSuccess, positionError)
-
+// Getting the location of the user
 function positionSuccess({ coords }) {
   getWeather(
     coords.latitude,
@@ -23,6 +23,7 @@ function positionError() {
   )
 }
 
+// Using the functions below, populate the tables
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current)
   renderDailyWeather(daily)
@@ -31,14 +32,17 @@ function renderWeather({ current, daily, hourly }) {
   document.body.classList.remove("blurred")
 }
 
+// Select the query
 function setValue(selector, value, { parent = document } = {}) {
   parent.querySelector(`[data-${selector}]`).textContent = value
 }
 
+// Get the icon code according to the mapping
 function getIconUrl(iconCode) {
   return `icons/${ICON_MAP.get(iconCode)}.svg`
 }
 
+// Populate the icon tables with the current icons
 const currentIcon = document.querySelector("[data-current-icon]")
 function renderCurrentWeather(current) {
   currentIcon.src = getIconUrl(current.iconCode)
@@ -54,6 +58,7 @@ function renderCurrentWeather(current) {
 const DAY_FORMATTER = new Intl.DateTimeFormat(undefined, { weekday: "long" })
 const dailySection = document.querySelector("[data-day-section]")
 const dayCardTemplate = document.getElementById("day-card-template")
+//Retrieve Daily weather 
 function renderDailyWeather(daily) {
   dailySection.innerHTML = ""
   daily.forEach(day => {
@@ -70,12 +75,13 @@ const HOUR_FORMATTER = new Intl.DateTimeFormat(undefined, { hour: "numeric" })
 const hourlySection = document.querySelector("[data-hour-section]")
 const hourRowTemplate = document.getElementById("hour-row-template")
 const currentDay = new Date().toLocaleDateString('en-us', { weekday: "long" });
+// Retrieve the hourly water
 function renderHourlyWeather(hourly) {
 
   hourlySection.innerHTML = ""
 
   let i = 0;
-
+  // Hourly weather for the current day
   while (DAY_FORMATTER.format(hourly[i].timestamp) === currentDay) {
     const element = hourRowTemplate.content.cloneNode(true)
     setValue("temp", hourly[i].temp, { parent: element })
@@ -89,6 +95,7 @@ function renderHourlyWeather(hourly) {
     i++
   }
 
+  // This functions is for the weekly hourly data, I commented this out because I only needed the daily
   //hourly.forEach(hour => {
 
   //const element = hourRowTemplate.content.cloneNode(true)
